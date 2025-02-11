@@ -16,7 +16,7 @@ def C_To_I(x, y, n):
 
 def PerOp_FD(n, e, lamb, g):
     #diagonal
-    aux = -4/(2*n**2) - lamb*(e[1]+e[2])/n + .5*lamb**2 
+    aux = -4/(2*n**2) - lamb*(e[0]+e[1])/n + .5*lamb**2 
     dim = n*n
     A = (aux)*np.identity(dim)
     
