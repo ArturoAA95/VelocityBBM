@@ -22,6 +22,7 @@ def PerOp_FD(n, e, lamb, g):
     
     for i in range(dim):
         coord = I_To_C(i, n)
+        #print(coord,g(coord[0], coord[1]))
         A[i,i] += g(coord[0], coord[1])
     # Right and Up
         A[i, (i+1)%n] += 1/(2*n**2) + lamb*e[0]/n

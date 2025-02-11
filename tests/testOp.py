@@ -1,12 +1,16 @@
 import numpy as np
 from EigenProblem import PerOp_FD
 from BranchingRates import g_1
+import matplotlib.pyplot as plt
 
-n = 3
+n = 100
 e = [0,1]
 lamb = 1
 
 
 A = PerOp_FD(n, e, lamb, g_1)
 
-print(np.diag(A))
+#print(np.diag(A))
+
+plt.plot(np.diag(A))
+plt.show()
