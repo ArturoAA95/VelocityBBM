@@ -8,27 +8,39 @@ import matplotlib.pyplot as plt
 
 n = 100
 #e = [1/np.sqrt(2), 1/np.sqrt(2)]
-e = [0,1]
+
+N = 4
 dim = 25
-lamb = [i*.2 for i in range(dim) ]
+angle = [i*(2*np.pi/N) for i in range(N)]
+lamb = [i*.08 for i in range(dim) ]
 
-Eig = np.empty(dim)
-
-
-for i in range(dim):
-    r = lamb[i]**2/2 + 6
-    B = PerOp_FD_Sparse(n, e, lamb[i], g_3)
-    b = linalg.eigs(B, 1 , sigma=r)
-    Eig[i] = b[0][0]
+Gamma = np.empty((N, dim))
+ 
+for j in range(N):
+    print('e')
+    e = [np.sin(angle[j]), np.cos(angle[j])]
     
-fig, ax = plt.subplots(figsize=(6, 6))
-#ax.title.set_text('e=(1/sqrt 2,1/sqrt 2)')
-ax.title.set_text('e=(0,1)')
-plt.xlim(0, 5)
-plt.ylim(0, 5)
-ax.plot(lamb, Eig)
-ax.axis('equal')
-plt.show()
-plt.close(fig)
+    for i in range(dim):
+        r = lamb[i]**2/2 + 1
+        B = PerOp_FD_Sparse(n, e, lamb[i], g_2)
+        b = linalg.eigs(B, 1 , sigma=r, return_eigenvectors=False)
+        Gamma[j,i] = b[0]
+    
+    print('b')
+    name = '{}'.format(j)
+    np.savez('{0}.npz'.format(name), lamb=lamb, Eig=Gamma[j,:])
+    print('a')
 
-np.savez('testA.npz', lamb=lamb, Eig=Eig)
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.title.set_text('{}_{}'.format(e[0], e[1]))
+    plt.xlim(0, 5)
+    plt.ylim(0, 5)
+    ax.plot(lamb, Gamma[j,:])
+    ax.axis('equal')
+    fig.savefig('{0}.png'.format(name))   # save the figure to file
+    print('c')
+    plt.close(fig)
+    print('d')
+    
+
+
