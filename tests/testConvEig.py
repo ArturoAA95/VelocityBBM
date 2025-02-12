@@ -14,9 +14,10 @@ m = 25
 m_s = 10
 Eig = np.empty(m)
 
-
+#principal eigenvalue when lambda=0 is r
 r = integrate.nquad(g_1 , [[0,1], [0,1]])
 
+#eigenvalue approx for smaller mesh-size
 for i in range(m):
     n = (i+1)*m_s
     B = PerOp_FD_Sparse(n, e, lamb, g_1)

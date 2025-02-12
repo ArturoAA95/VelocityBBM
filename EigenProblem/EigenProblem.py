@@ -34,6 +34,8 @@ def PerOp_FD(n, e, lamb, g):
 
     return A
 
+#Same function as above but with sparse matrix to 
+#allow large discretizations
 
 def PerOp_FD_Sparse(n, e, lamb, g):
     #diagonals
@@ -62,4 +64,3 @@ def PerOp_FD_Sparse(n, e, lamb, g):
                      format = "dia")
     
     return A
-
